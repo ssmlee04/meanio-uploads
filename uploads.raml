@@ -1,0 +1,40 @@
+#%RAML 0.8
+
+/multipart-upload:
+  description: multipart upload file
+  post:
+    body:
+      multipart/form-data:
+        formParameters:
+          upload:
+            description: The file to be uploaded
+            required: true
+            type: file
+/multipart-upload-aws:
+  description: multipart upload file by admin to AWS
+  post:
+    body:
+      multipart/form-data:
+        formParameters:
+          upload:
+            description: The file to be uploaded
+            required: true
+            type: file
+/base64-upload:
+  description: multipart upload file
+  post:
+    body:
+      application/json:
+        formParameters:
+          data:
+            description: The base64 encoded string
+            type: string
+/base64-upload-aws:
+  description: base64 upload file to AWS
+  post:
+    body:
+      application/json:
+        formParameters:
+          data:
+            description: The base64 encoded string
+            type: string
