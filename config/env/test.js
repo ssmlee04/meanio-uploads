@@ -9,6 +9,12 @@ module.exports = {
       pass: ''
     }
   },
+  aws: {
+    key: process.env.AWS_ACCESS_KEY || '',
+    secret: process.env.AWS_ACCESS_SECRET || '',
+    region: process.env.AWS_REGION || 'us-west-2',
+    bucket: process.env.AWS_S3_BUCKET || ''
+  },
   debug: true,
   aggregate: true,
   mongoose: {

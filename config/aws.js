@@ -7,7 +7,7 @@ var AWS      = require('aws-sdk')
 AWS.config.update({
   accessKeyId: config && config.aws && config.aws.key,
   secretAccessKey: config && config.aws && config.aws.secret,
-  region: config && config.aws && config && config.aws.bucket || 'us-west-2'
+  region: config && config.aws && config.aws.region
 })
 
 module.exports = _.extend({

@@ -35,7 +35,6 @@ exports.uploadBase64ImageAWS = function (req, res) {
     d = d.replace(config.s3path, config.cloudFront)
     res.json(d)
   }).catch(function(err) {
-    console.log(err)
     console.log(err.stack)
     res.json(500, {error: 'text-error-upload-base64'})
   })
@@ -45,7 +44,7 @@ exports.multipartMiddleware = function (req, res, next) {
   var form = new multiparty.Form()
 
   form.uploadDir = path.join(config.root, config.uploadFolder) 
-  form.maxFilesSize = 50 * 1024 * 1024 // 50 mb
+  form.maxFilesSize = 5 * 1024 * 1024 // 5 mb
 
   form.parse(req, function(err, fields, files) {
     for (var key in fields) {
@@ -65,7 +64,9 @@ exports.multipartMiddleware = function (req, res, next) {
 }
 
 exports.showFilePath = function(req, res) {
-  res.json({subpath: req.subpath})
+  res.json({
+    subpath: req.subpath
+  })
 }
 
 exports.uploadToAWSImageThumb = function(req, res) {

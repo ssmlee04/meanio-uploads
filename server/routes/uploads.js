@@ -8,11 +8,11 @@ module.exports = function(Uploads, app, auth) {
     .post(uploads.multipartMiddleware, uploads.showFilePath)
 
   app.route('/apis/v1/uploads/base64-upload')
-    .post(auth.requiresLogin, uploads.uploadBase64Image)  
+    .post(uploads.uploadBase64Image)  
 
   app.route('/apis/v1/uploads/multipart-upload-aws')
-    .post(uploads.multipartMiddleware, auth.requiresAdmin, uploads.uploadToAWSImageThumb)
+    .post(auth.requiresLogin, auth.requiresAdmin, uploads.multipartMiddleware, uploads.uploadToAWSImageThumb)
   
   app.route('/apis/v1/uploads/base64-upload-aws')
-    .post(auth.requiresLogin, uploads.uploadBase64ImageAWS)
+    .post(auth.requiresLogin, auth.requiresAdmin, uploads.uploadBase64ImageAWS)
 }

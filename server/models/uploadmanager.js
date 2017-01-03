@@ -114,7 +114,7 @@ var uploadFileToAWS = function(subpath, type, next) {
   var filename = path.basename(fullpath)
   var destfile =  filename.substring(0, 3) + '/' + filename.substring(3, 6) + '/' + filename.substring(6, 9) + '/' + filename.substring(9)
   var read = fs.createReadStream(fullpath)
-  var bucket = config.upload.bucket
+  var bucket = config && config.aws && config.aws.bucket
   if (!bucket) {
     return next('error need a bucket for upload')
   }
