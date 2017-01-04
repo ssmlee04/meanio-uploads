@@ -19,9 +19,9 @@ var thumbHeight = 256
 var imageWidth = 353 * 1.5
 var imageHeight = 257 * 1.5
 var randomstring = require('randomstring')
-
+console.log(123)
 var UploadmanagerSchema = new Schema({
-  
+
 }, {
   collection: 'oc_uploads'
 })
@@ -42,7 +42,7 @@ var downloadFileOnly = function(uri, filename, callback) {
 
 var downloadFile = function(uri, callback) {
   var subpath = randomstring.generate(24) + '.jpg'
-  var fullpath = path.join(config.root, config.uploadFolder, subpath) 
+  var fullpath = path.join(config.root, config.uploadFolder, subpath)
 
   return Promise.resolve()
   .then(function() {
@@ -99,7 +99,7 @@ var resizeImageFile = function(file, width, height, quality, next) {
 }
 
 var uploadFileToAWS = function(subpath, type, next) {
-  var fullpath = path.join(config.root, config.uploadFolder, path.basename(subpath)) 
+  var fullpath = path.join(config.root, config.uploadFolder, path.basename(subpath))
   if (!fullpath) {
     return next(null, fullpath)
   }
@@ -174,7 +174,7 @@ var FileToAWSImageThumb = function(imSubpath, empty, imWidth, imHeight, thWidth,
     })
   }).then(function() {
     return {
-      image: this.image, 
+      image: this.image,
       thumb: this.thumb
     }
   })
@@ -186,7 +186,7 @@ var Base64ToImageFile = function(data) {
     return Promise.reject('text-error-data')
   }
   var subpath = randomstring.generate(24) + '.jpg'
-  var fullpath = path.join(config.root, config.uploadFolder, subpath) 
+  var fullpath = path.join(config.root, config.uploadFolder, subpath)
 
   return Promise.promisify(fs.writeFile)(fullpath, new Buffer(data, 'base64'))
   .then(function() {
@@ -207,8 +207,8 @@ UploadmanagerSchema.statics.Base64ToAWSImage = function(data) {
 // thpath: subpath
 var FileToImageThumb = function(imSubpath, empty, imWidth, imHeight, thWidth, thHeight) {
   var thSubpath = randomstring.generate(24) + path.extname(imSubpath)
-  var imFullpath = path.join(config.root, config.uploadFolder, path.basename(imSubpath)) 
-  var thFullpath = path.join(config.root, config.uploadFolder, path.basename(thSubpath)) 
+  var imFullpath = path.join(config.root, config.uploadFolder, path.basename(imSubpath))
+  var thFullpath = path.join(config.root, config.uploadFolder, path.basename(thSubpath))
   imWidth = Math.max(50, imWidth || imageWidth)
   imHeight = Math.max(50, imHeight || imageHeight)
   thWidth = Math.max(50, thWidth || thumbWidth)

@@ -1,0 +1,10 @@
+#%RAML 0.8
+title: My API
+version: v1
+# baseUri: http://localhost:3005
+# baseUri: http://mocksvc.mulesoft.com/mocks/f30492c5-8c8e-47d5-b310-d44dcfafa05a
+
+/apis/v1/uploads: !include uploads.raml
+/apis/v1/users: !include node_modules/meanio-users/users.raml
+/apis/v1/auth: !include node_modules/meanio-users/auth.raml
+

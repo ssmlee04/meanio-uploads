@@ -19,7 +19,6 @@ exports.uploadBase64Image = function (req, res) {
   }).then(function(d) {
     res.json(d)
   }).catch(function(err) {
-    console.log(err)
     console.log(err.stack)
     res.json(500, {error: 'text-error-upload-base64'})
   })
@@ -43,10 +42,14 @@ exports.uploadBase64ImageAWS = function (req, res) {
 exports.multipartMiddleware = function (req, res, next) {
   var form = new multiparty.Form()
 
-  form.uploadDir = path.join(config.root, config.uploadFolder) 
+  form.uploadDir = path.join(config.root, config.uploadFolder)
   form.maxFilesSize = 5 * 1024 * 1024 // 5 mb
 
   form.parse(req, function(err, fields, files) {
+    if (err) {
+      return res.json(err.statusCode, err)
+    }
+
     for (var key in fields) {
       var value = fields[key]
       fields[key] = value[0]
@@ -58,12 +61,15 @@ exports.multipartMiddleware = function (req, res, next) {
     } else {
       req.subpath = (files.upload[0].path || [0]).slice((files.upload[0].path || [0]).indexOf(config.uploadFolder) + config.uploadFolder.length + 1)
     }
-    
+
     next(null, {'subpath': req.subpath})
   })
 }
 
 exports.showFilePath = function(req, res) {
+  console.log({
+    subpath: req.subpath
+  })
   res.json({
     subpath: req.subpath
   })
