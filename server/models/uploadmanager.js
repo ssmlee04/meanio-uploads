@@ -242,7 +242,6 @@ UploadmanagerSchema.statics.UrlToAWSImageThumb = function(url, empty, imWidth, i
 
 // upload a file in public folder to become image and thumb
 UploadmanagerSchema.statics.FileToAWSImageThumb = function(subpath, empty, imWidth, imHeight, thWidth, thHeight) {
-
   return Promise.resolve()
   .then(function() {
     return FileToAWSImageThumb(subpath, null, imWidth, imHeight, thWidth, thHeight)
@@ -250,7 +249,6 @@ UploadmanagerSchema.statics.FileToAWSImageThumb = function(subpath, empty, imWid
 }
 
 UploadmanagerSchema.statics.Base64ToAWSImageThumb = function(data, empty, imWidth, imHeight, thWidth, thHeight) {
-
   return Promise.resolve()
   .then(function() {
     return Base64ToImageFile(data)
@@ -260,10 +258,16 @@ UploadmanagerSchema.statics.Base64ToAWSImageThumb = function(data, empty, imWidt
 }
 
 UploadmanagerSchema.statics.Base64ToImageFile = function(data) {
-
   return Promise.resolve()
   .then(function() {
     return Base64ToImageFile(data)
+  })
+}
+
+UploadmanagerSchema.statics.UrlToImageFile = function(url) {
+  return Promise.resolve()
+  .then(function() {
+    return Promise.promisify(downloadFile)(url)
   })
 }
 

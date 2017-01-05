@@ -316,7 +316,7 @@ describe('<Unit Test>', function() {
       .then(function() {
 
       }).then(function() {
-        del(['public/*.jpg']).then(function() {})
+        del(['public/*', 'public']).then(function() {})
       }).then(function() {
         done()
       }).catch(function(err) {
