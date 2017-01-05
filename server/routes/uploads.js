@@ -11,7 +11,7 @@ module.exports = function(Uploads, app, auth) {
     .post(auth.requiresLogin, uploads.uploadBase64Image)
 
   app.route('/apis/v1/uploads/multipart-upload-aws')
-    .post(auth.requiresLogin, auth.requiresAdmin, uploads.multipartMiddleware, uploads.uploadToAWSImageThumb)
+    .post(auth.requiresLogin, auth.requiresAdmin, uploads.multipartMiddleware, uploads.uploadToAWSImage)
 
   app.route('/apis/v1/uploads/base64-upload-aws')
     .post(auth.requiresLogin, auth.requiresAdmin, uploads.uploadBase64ImageAWS)

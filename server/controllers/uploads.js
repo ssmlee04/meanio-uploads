@@ -67,15 +67,12 @@ exports.multipartMiddleware = function (req, res, next) {
 }
 
 exports.showFilePath = function(req, res) {
-  console.log({
-    subpath: req.subpath
-  })
   res.json({
     subpath: req.subpath
   })
 }
 
-exports.uploadToAWSImageThumb = function(req, res) {
+exports.uploadMultipartImageAWS = function(req, res) {
   var subpath = req.subpath
 
   return Promise.resolve()
@@ -90,3 +87,32 @@ exports.uploadToAWSImageThumb = function(req, res) {
   })
 }
 
+// exports.uploadToAWSImageThumb = function(req, res) {
+//   var subpath = req.subpath
+
+//   return Promise.resolve()
+//   .then(function() {
+//     return Uploadmanager.FileToAWSImageThumb(subpath)
+//   }).then(function(d) {
+//     res.json(d)
+//   }).catch(function(err) {
+//     console.log(err)
+//     console.log(err.stack)
+//     res.json(500, {error: 'text-error-upload-base64-aws'})
+//   })
+// }
+
+exports.uploadToAWSImage = function(req, res) {
+  var subpath = req.subpath
+
+  return Promise.resolve()
+  .then(function() {
+    return Uploadmanager.FileToAWSImage(subpath)
+  }).then(function(d) {
+    res.json(d)
+  }).catch(function(err) {
+    console.log(err)
+    console.log(err.stack)
+    res.json(500, {error: 'text-error-upload-base64-aws'})
+  })
+}
