@@ -180,6 +180,15 @@ var FileToAWSImageThumb = function(imSubpath, empty, imWidth, imHeight, thWidth,
   })
 }
 
+var FileToAWSImage = function(imSubpath) {
+  var imFullpath = path.join(config.root, config.uploadFolder, path.basename(imSubpath))
+
+  return Promise.bind({})
+  .then(function() {
+    return Promise.promisify(uploadFileToAWS)(imFullpath, 'image')
+  })
+}
+
 // base64 to files under public folder
 var Base64ToImageFile = function(data) {
   if (!data) {
@@ -241,6 +250,14 @@ UploadmanagerSchema.statics.UrlToAWSImageThumb = function(url, empty, imWidth, i
 }
 
 // upload a file in public folder to become image and thumb
+UploadmanagerSchema.statics.FileToAWSImage = function(subpath) {
+
+  return Promise.resolve()
+  .then(function() {
+    return FileToAWSImage(subpath)
+  })
+}
+
 UploadmanagerSchema.statics.FileToAWSImageThumb = function(subpath, empty, imWidth, imHeight, thWidth, thHeight) {
   return Promise.resolve()
   .then(function() {
